@@ -1,0 +1,53 @@
+﻿@model ProductList3.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    
+}    
+<div id="details">
+    <h4>Product details</h4>
+    <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProductName)
+            </dd> 
+            
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ExpiryDate)
+            </dd> 
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ExpiryTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ExpiryTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quantity)
+            </dd> 
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RegistrationTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegistrationTime)
+            </dd>   
+        </dl>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+        <a asp-action="List">Back to List</a>
+    </div>
+</div>

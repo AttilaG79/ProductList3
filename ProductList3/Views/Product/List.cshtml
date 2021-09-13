@@ -1,0 +1,118 @@
+﻿@model IEnumerable<ProductList3.Models.Product>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<a asp-controller="Product" asp-action="Create"><input type="button" class="btn btn-success w-25" value="Add a New Product" /></a><br />
+<br />
+<table class="table table-hover ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiryTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationTime)
+            </th>         
+            <th>
+                <h5>Show or change details</h5>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+@foreach (var item in Model) {
+    
+    var ex = item.ExpiryDate.AddDays(-15); //You can set up any date as requested just change the number inside, like this: (-27)
+    var exsecond = item.ExpiryDate.AddDays(-30); // and change the message inside the If statement accordingly
+    var exthird = item.ExpiryDate.AddDays(-60);
+    
+        <tr>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td width="10%"> 
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td width="25%">
+                @Html.DisplayFor(modelItem => item.ExpiryDate)
+
+                @if (ex < DateTime.Now)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> <!--This is for symbol-->
+                        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </symbol>
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" style="margin-right: 10px" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                            <div>
+                                <strong>@item.ProductName  @item.Description</strong> will be expire less then <strong>15</strong> days!
+                            </div>
+                        </div>
+                    </svg>
+                }
+                else if (exsecond < DateTime.Now)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </symbol>
+                        <div class="alert alert-warning d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" style="margin-right: 10px" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                            <div>
+                                <strong>@item.ProductName  @item.Description</strong> will be expire less then <strong>30</strong> days!
+                            </div>
+                        </div>
+                    </svg>
+                }
+                else if (exthird < DateTime.Now)
+                {
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                        </symbol>
+                        <div class="alert alert-primary d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" style="margin-right: 10px" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
+                            <div>
+                                <strong>@item.ProductName  @item.Description</strong> will be expire less then <strong>60</strong> days!
+                            </div>
+                        </div>
+                    </svg>
+                }
+            
+            </td>
+            <td width="5%">
+                @Html.DisplayFor(modelItem => item.ExpiryTime)
+            </td>
+            <td width="5%">
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.RegistrationTime)
+            </td>            
+            <td width="65%">
+                <div >               
+                    <a asp-action="Edit" asp-route-id="@item.ProductId"><input type="button" class="btn btn-primary mx-1" value="Edit" /></a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId"><input type="button" class="btn btn-success mx-1" value="Details" /></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId"><input type="button" class="btn btn-danger mx-1" value="Delete" /></a>
+                </div>  
+            </td>
+                
+        </tr>
+}
+    </tbody>
+</table>
+
+
